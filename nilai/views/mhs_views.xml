@@ -1,0 +1,71 @@
+ <odoo>
+        <record id="mhs_view_form" model="ir.ui.view">
+        <field name="name">mhs.view.form</field>
+        <field name="model">nilai.mhs</field>
+        <field name="arch" type="xml">
+            <form string="mhs form">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="nrp"/>
+                            <field name="status"/>
+
+                        </group>
+ <field name="tes"/>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="mhs_view_list" model="ir.ui.view">
+        <field name="name">mhs.view.list</field>
+        <field name="model">nilai.mhs</field>
+        <field name="arch" type="xml">
+            <tree string="nilai list">
+                <field name="name"/>
+                <field name="nrp"/>
+                <!--<field name="score"/>-->
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+     <record id="mhs_view_search" model="ir.ui.view">
+        <field name="name">mhs.view.search</field>
+        <field name="model">nilai.mhs</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="nrp"/>
+                <field name="status" widget="radio"/>
+
+
+
+
+            </search>
+        </field>
+    </record>
+
+    <record id="mhs_action" model="ir.actions.act_window">
+        <field name="name">mhs</field>
+        <field name="res_model">nilai.mhs</field>
+        <field name="view_id" ref="mhs_view_list"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+     <menuitem id="nilai_menu" parent="ideaa.exercise_menu" name="Nilai"
+              sequence="30"/>
+
+    <menuitem id="mhs_menu" parent="nilai.nilai_menu" name="mhs"
+              action="mhs_action" sequence="10"/>
+
+
+ </odoo>

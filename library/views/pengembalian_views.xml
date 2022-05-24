@@ -1,0 +1,82 @@
+<odoo>
+    <record id="pengembalian_view_form" model="ir.ui.view">
+        <field name="name">pengembalian.view.form</field>
+        <field name="model">library.pengembalian</field>
+        <field name="arch" type="xml">
+            <form string="pengembalian form">
+                <header>
+                    <button name="action_vote" string="voted" states="draft" type="object" class="btn-primary"/>
+                    <button name="action_settodraft" string="Set to Draft" states="canceled" type="object"
+                            class="btn-primary"/>
+                    <button name="action_canceled" string="Cancel" states="pengembalian" type="object" class="btn-primary"
+                            groups="sales_team.group_sale_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id_pengembalian"/>
+                             <field name="transaksi_id"/>
+
+
+                        </group>
+                        <group>
+                              <field name="vote" widget="radio"/>
+
+                              <field name="date"/>
+                        </group>
+
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pengembalian_view_list" model="ir.ui.view">
+        <field name="name">pengembalian.view.list</field>
+        <field name="model">library.pengembalian</field>
+        <field name="arch" type="xml">
+            <tree string="buku list">
+                   <field name="id_pengembalian"/>
+                <field name="transaksi_id"/>
+                <field name="date"/>
+                     <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="pengembalian_view_search" model="ir.ui.view">
+
+        <field name="model">library.pengembalian</field>
+        <field name="arch" type="xml">
+            <search>
+                     <field name="id_pengembalian"/>
+                     <field name="transaksi_id"/>
+                     <filter string="Draft" name="draft_filter" domain="[('state', '=', 'draft')]"/>
+                     <filter string="Confirmed" name="confirmed_filter" domain="[('state', '=', 'confirmed')]"/>
+                <separator/>
+                <!--<filter string="Score>10" name="score10_filter" domain="[('score', '>', 10)]"/>-->
+
+                <group string="Group By..." expand="0" name="groupby">
+                    <filter string="State" name="by_state" context="{'group_by': 'state'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="pengembalian_action" model="ir.actions.act_window">
+        <field name="name">pengembalian</field>
+        <field name="res_model">library.pengembalian</field>
+        <field name="view_id" ref="pengembalian_view_list"/>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+<menuitem id="pengembalian_menu" parent="library.library_menu" name="pengembalian"
+              action="pengembalian_action" sequence="20"/>
+
+
+</odoo>

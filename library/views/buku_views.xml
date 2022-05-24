@@ -1,0 +1,124 @@
+<odoo>
+    <record id="buku_view_form" model="ir.ui.view">
+        <field name="name">buku.view.form</field>
+        <field name="model">library.buku</field>
+        <field name="arch" type="xml">
+            <form string="buku form">
+                <header>
+                    <button name="action_confirmed" string="Confirm" states="draft" type="object" class="btn-primary"/>
+                    <button name="action_settodraft" states="canceled" string="Set to Draft" type="object" class="btn-primary"/>
+                    <button name="action_done" states="confirmed" string="Approve" type="object" class="btn-primary"/>
+                    <button name="action_canceled" string="Cancel" states="confirmed,done" type="object" class="btn-primary" groups="sales_team.group_sale_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id_buku"/>
+                            <field name="judul"/>
+                            <field name="penerbit"/>
+                            <field name="harga"/>
+                            <field name="total_pinjam"/>
+                            <field name="total_kembali"/>
+                        </group>
+
+                    </group>
+                        <notebook>
+                            <page string="transaksi" name="transaksi"> <!--ini yg muncul diatas dgn nama sheet-->
+                                <field name="transaksi_ids" readonly="1"> <!--readonly 1 ga bisa ubah kalo 0 bisa lngusng isi dr halamn tsb-->
+                                    <tree>
+                                        <field name="id_transaksi"/>
+
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="buku_view_list" model="ir.ui.view">
+        <field name="name">buku.view.list</field>
+        <field name="model">library.buku</field>
+        <field name="arch" type="xml">
+            <tree string="buku list">
+                   <field name="id_buku"/>
+                   <field name="judul"/>
+                   <field name="penerbit"/>
+                    <field name="harga"/>
+                   <field name="total_pinjam"/>
+                   <field name="total_kembali"/>
+                   <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="buku_view_kanban" model="ir.ui.view">
+        <field name="name">buku.view.kanban</field>
+        <field name="model">library.buku</field>
+        <field name="arch" type="xml">
+            <kanban>
+                   <field name="id_buku"/>
+                   <field name="judul"/>
+                   <field name="penerbit"/>
+                     <field name="harga"/>
+                   <field name="total_pinjam"/>
+                   <field name="total_kembali"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="id_buku"/>
+                                </strong>
+                                <ul>
+                                    <li t-if="record.date.raw_value">
+                                        <field name="judul"/>
+                                    </li>
+                                    <li t-if="record.date.raw_value">
+                                        <field name="penerbit"/>
+                                    </li>
+                                     <li t-if="record.date.raw_value">
+                                        <field name="harga"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="buku_view_search" model="ir.ui.view">
+        <field name="name">buku.view.search</field>
+        <field name="model">library.buku</field>
+        <field name="arch" type="xml">
+            <search>
+                  <field name="id_buku"/>
+                  <field name="judul"/>
+                  <field name="penerbit"/>
+                  <field name="harga"/>
+                  <field name="total_pinjam"/>
+                  <field name="total_kembali"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="buku_action" model="ir.actions.act_window">
+        <field name="name">buku</field>
+        <field name="res_model">library.buku</field>
+        <field name="view_id" ref="buku_view_list"/>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+    <menuitem id="library_menu" parent="ideaa.exercise_menu" name="library"
+              sequence="50"/>
+
+    <menuitem id="buku_menu" parent="library.library_menu" name="buku"
+              action="buku_action" sequence="10"/>
+
+</odoo>

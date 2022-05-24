@@ -1,0 +1,93 @@
+<odoo>
+    <record id="transaksi_view_form" model="ir.ui.view">
+        <field name="name">transaksi.view.form</field>
+        <field name="model">library.transaksi</field>
+        <field name="arch" type="xml">
+            <form string="transaksi form">
+                <header>
+                    <button name="action_vote" string="voted" states="draft" type="object" class="btn-primary"/>
+                    <button name="action_settodraft" string="Set to Draft" states="canceled" type="object"
+                            class="btn-primary"/>
+                    <button name="action_canceled" string="Cancel" states="transaksi" type="object" class="btn-primary"
+                            groups="sales_team.group_sale_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id_transaksi"/>
+                            <field name="mhs_id"/>
+                            <field name="buku_id"/>
+
+
+                        </group>
+                        <group>
+
+                              <field name="vote" widget="radio"/>
+                            <field name="datepinjam"/>
+                            <field name="datekembali"/>
+
+                             <field name="dateline"/>
+                             <field name="denda"/>
+
+                        </group>
+
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="transaksi_view_list" model="ir.ui.view">
+        <field name="name">transaksi.view.list</field>
+        <field name="model">library.transaksi</field>
+        <field name="arch" type="xml">
+            <tree string="buku list">
+                         <field name="id_transaksi"/>
+                            <field name="mhs_id"/>
+                            <field name="buku_id"/>
+                             <field name="datepinjam"/>
+                             <field name="datekembali"/>
+                             <field name="dateline"/>
+                             <field name="denda"/>
+
+                     <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="transaksi_view_search" model="ir.ui.view">
+
+        <field name="model">library.transaksi</field>
+        <field name="arch" type="xml">
+            <search>
+                     <field name="id_transaksi"/>
+                   <field name="mhs_id"/>
+                     <filter string="Draft" name="draft_filter" domain="[('state', '=', 'draft')]"/>
+                     <filter string="Confirmed" name="confirmed_filter" domain="[('state', '=', 'confirmed')]"/>
+                <separator/>
+                <!--<filter string="Score>10" name="score10_filter" domain="[('score', '>', 10)]"/>-->
+
+                <group string="Group By..." expand="0" name="groupby">
+                    <filter string="State" name="by_state" context="{'group_by': 'state'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="transaksi_action" model="ir.actions.act_window">
+        <field name="name">transaksi</field>
+        <field name="res_model">library.transaksi</field>
+        <field name="view_id" ref="transaksi_view_list"/>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+<menuitem id="transaksi_menu" parent="library.library_menu" name="transaksi"
+              action="transaksi_action" sequence="20"/>
+
+
+</odoo>

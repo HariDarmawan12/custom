@@ -1,0 +1,76 @@
+<odoo>
+    <record id="mhs_view_form" model="ir.ui.view">
+        <field name="name">mhs.view.form</field>
+        <field name="model">library.mhs</field>
+        <field name="arch" type="xml">
+            <form string="mhs form">
+                <header>
+                    <button name="action_vote" string="voted" states="draft" type="object" class="btn-primary"/>
+                    <button name="action_settodraft" string="Set to Draft" states="canceled" type="object"
+                            class="btn-primary"/>
+                    <button name="action_canceled" string="Cancel" states="mhs" type="object" class="btn-primary"
+                            groups="sales_team.group_sale_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id_mhs"/>
+                            <field name="name"/>
+
+                        </group>
+
+
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mhs_view_list" model="ir.ui.view">
+        <field name="name">mhs.view.list</field>
+        <field name="model">library.mhs</field>
+        <field name="arch" type="xml">
+            <tree string="buku list">
+                     <field name="id_mhs"/>
+                     <field name="name"/>
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="mhs_view_search" model="ir.ui.view">
+        <field name="name">mhs.view.search</field>
+        <field name="model">library.mhs</field>
+        <field name="arch" type="xml">
+            <search>
+                     <field name="id_mhs"/>
+                     <field name="name"/>
+                     <filter string="Draft" name="draft_filter" domain="[('state', '=', 'draft')]"/>
+                     <filter string="Confirmed" name="confirmed_filter" domain="[('state', '=', 'confirmed')]"/>
+                <separator/>
+                <!--<filter string="Score>10" name="score10_filter" domain="[('score', '>', 10)]"/>-->
+
+                <group string="Group By..." expand="0" name="groupby">
+                    <filter string="State" name="by_state" context="{'group_by': 'state'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="mhs_action" model="ir.actions.act_window">
+        <field name="name">mhs</field>
+        <field name="res_model">library.mhs</field>
+        <field name="view_id" ref="mhs_view_list"/>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+<menuitem id="mhs_menu" parent="library.library_menu" name="mhs"
+              action="mhs_action" sequence="20"/>
+
+
+</odoo>
