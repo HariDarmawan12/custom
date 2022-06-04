@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+
+"access_uas_user","Access barang for User Sales","model_uas_barang","sales_team.group_sale_salesman_all_leads",1,1,1,0
+"access_uas_admin","Access barang for Admin","model_uas_barang","sales_team.group_sale_manager",1,1,1,1,

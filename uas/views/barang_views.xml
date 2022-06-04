@@ -1,0 +1,141 @@
+<odoo>
+    <record id="barang_view_form" model="ir.ui.view">
+        <field name="name">barang.view.form</field>
+        <field name="model">uas.barang</field>
+        <field name="arch" type="xml">
+            <form string="barang form">
+<!--                <header>-->
+<!--                    <button name="action_confirmed" string="Confirm" states="draft" type="object" class="btn-primary"/>-->
+<!--                    <button name="action_settodraft" states="canceled" string="Set to Draft" type="object" class="btn-primary"/>-->
+<!--                    <button name="action_done" states="confirmed" string="Approve" type="object" class="btn-primary"/>-->
+<!--                    <button name="action_canceled" string="Cancel" states="confirmed,done" type="object" class="btn-primary" groups="sales_team.group_sale_manager"/>-->
+<!--                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>-->
+<!--                </header>-->
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id_barang"/>
+                            <field name="nama_barang"/>
+                            <field name="ukuran"/>
+                            <field name="warna"/>
+                            <field name="qty_dus"/>
+                            <field name="qty_pcs"/>
+                            <field name="harga"/>
+                            <field name="disc"/>
+                            <field name="stok_barang"/>
+                        </group>
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="barang_view_list" model="ir.ui.view">
+        <field name="name">barang.view.list</field>
+        <field name="model">uas.barang</field>
+        <field name="arch" type="xml">
+            <tree string="barang list">
+                   <field name="id_barang"/>
+                            <field name="nama_barang"/>
+                            <field name="ukuran"/>
+                            <field name="warna"/>
+                            <field name="qty_dus"/>
+                            <field name="qty_pcs"/>
+                            <field name="harga"/>
+                            <field name="disc"/>
+                            <field name="stok_barang"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="barang_view_kanban" model="ir.ui.view">
+        <field name="name">barang.view.kanban</field>
+        <field name="model">uas.barang</field>
+        <field name="arch" type="xml">
+            <kanban>
+                  <field name="id_barang"/>
+                            <field name="nama_barang"/>
+                            <field name="ukuran"/>
+                            <field name="warna"/>
+                            <field name="qty_dus"/>
+                            <field name="qty_pcs"/>
+                            <field name="harga"/>
+                            <field name="disc"/>
+                            <field name="stok_barang"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="id_barang"/>
+                                </strong>
+                                <ul>
+                                    <li t-if="record.date.raw_value">
+                                        <field name="nama_barang"/>
+                                    </li>
+                                    <li t-if="record.date.raw_value">
+                                        <field name="ukuran"/>
+                                    </li>
+                                     <li t-if="record.date.raw_value">
+                                        <field name="warna"/>
+                                    </li>
+
+                                    <li t-if="record.date.raw_value">
+                                        <field name="qty_dus"/>
+                                    </li>
+                                    <li t-if="record.date.raw_value">
+                                        <field name="qty_pcs"/>
+                                    </li>
+                                     <li t-if="record.date.raw_value">
+                                        <field name="harga"/>
+                                    </li>
+                                     <li t-if="record.date.raw_value">
+                                        <field name="disc"/>
+                                    </li>
+                                     <li t-if="record.date.raw_value">
+                                        <field name="stok_barang"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="barang_view_search" model="ir.ui.view">
+        <field name="name">barang.view.search</field>
+        <field name="model">uas.barang</field>
+        <field name="arch" type="xml">
+            <search>
+                 <field name="id_barang"/>
+                            <field name="nama_barang"/>
+                            <field name="ukuran"/>
+                            <field name="warna"/>
+                            <field name="qty_dus"/>
+                            <field name="qty_pcs"/>
+                            <field name="harga"/>
+                            <field name="disc"/>
+                            <field name="stok_barang"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="barang_action" model="ir.actions.act_window">
+        <field name="name">barang</field>
+        <field name="res_model">uas.barang</field>
+        <field name="view_id" ref="barang_view_list"/>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+    <menuitem id="uas_menu" parent="ideaa.exercise_menu" name="uas" sequence="50"/>
+
+    <menuitem id="barang_menu" parent="uas_menu" name="barang" action="barang_action" sequence="10"/>
+
+
+
+</odoo>
